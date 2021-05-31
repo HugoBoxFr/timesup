@@ -1,0 +1,53 @@
+<div class="config">
+    <div class="form-config col-md-6">
+        <div class="title-config">
+            <h2>Création de partie</h2>
+            <button class="btn btn-warning btn-rules">?</button>
+        </div>
+
+        <form #configForm="ngForm">
+            <div class="mb-3 form-group">
+                <label for="teams" class="col-md-6">Nombre d'équipes</label>
+                <select id="teams" class="custom-select col-md-6" [(ngModel)]="game.nbOfTeams" name="nbOfTeams" (ngModelChange)="generateTeams($event)">
+                    <option *ngFor="let nb of teamsSelection" [value]="nb">
+                        {{ nb }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="teams form-group">
+                <div class="mb-3 col-md-6 team" *ngFor="let team of game.teams; let id=index">
+                    <input type="text" class="form-control mb-1" placeholder="Nom d'équipe" [(ngModel)]="team.name" [ngModelOptions]="{standalone: true}" name="name">
+
+                    <div class="team-config">
+                        <input type="number" class="form-control col-9" placeholder="Nb de joueurs" [(ngModel)]="team.nbOfPlayers" name="teamNb" (ngModelChange)="generatePlayers()">
+                        <button class="btn btn-primary btn-edit col-2">+</button>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="mb-3 form-group">
+                <label for="time" class="col-md-6">Temps par tour</label>
+                <select id="time" class="custom-select col-md-6" [(ngModel)]="game.time" name="time">
+                    <option *ngFor="let time of timeSelection" [value]="time">
+                        {{ time }} secondes
+                    </option>
+                </select>
+            </div>
+    
+            <div class="mb-3 form-group">
+                <label for="nbOfCards" class="col-md-6">Nombre de cartes</label>
+                <select id="nbOfCards" class="custom-select col-md-6" [(ngModel)]="game.nbOfCards" name="gameNbCards" (ngModelChange)="generateNbOfCards($event)">
+                    <option *ngFor="let nbCard of nbOfCardsSelection" [value]="nbCard">
+                        {{ nbCard }} par joueur
+                    </option>
+                </select>
+            </div>
+    
+            <div class="form-btn">
+                <button type="submit" class="btn btn-primary" disabled>Cartes aléatoires</button>
+                <button type="submit" class="btn btn-primary" (click)="onCreateCards()">Créer ses cartes</button>
+            </div>
+        </form>
+    </div>
+</div>
